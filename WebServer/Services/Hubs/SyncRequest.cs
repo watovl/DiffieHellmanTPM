@@ -43,12 +43,33 @@ namespace WebServer.Services.Hubs {
         public SyncWay Way { get; set; }        // способ синхронизации
         public readonly DateTime Expires;       // время жизни запроса
 
-        private static readonly TimeSpan LifeTime = TimeSpan.FromSeconds(60); // время жизни запроса
+        private static readonly TimeSpan LifeTime = TimeSpan.FromSeconds(30); // время жизни запроса
 
         public SyncRequest() {
             Expires = DateTime.Now.Add(LifeTime);
         }
     }
+
+    //public class Dict {
+    //    private List<Dictionary<string, SyncRequest>> _listSyncRequests = new List<Dictionary<string, SyncRequest>>();
+    //    private static readonly object locker = new object();
+
+    //    public SyncRequest GetOrAdd(SyncRequest request, Predicate<Dictionary<string, SyncRequest>> match) {
+    //        Dictionary<string, SyncRequest> foundRequest = null;
+    //        foundRequest = _listSyncRequests.Find(match);
+
+    //        lock (locker) {
+    //            foundRequest = _listSyncRequests.Find(match);
+    //            if (foundRequest == null) {
+    //                _listSyncRequests.Add(request);
+    //            }
+    //            else {
+    //                _listSyncRequests.Remove(foundRequest);
+    //            }
+    //        }
+    //        return foundRequest;
+    //    }
+    //}
 
     public class ListRequests {
         private List<SyncRequest> _listSyncRequests = new List<SyncRequest>();
